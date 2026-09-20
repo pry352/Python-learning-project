@@ -63,7 +63,7 @@ def validate(data):
         ['patient_id', 'age', 'gender', 'diagnosis', 'medications', 'last_visit_id']
     )
 
-    for index, dictionary in enumerate(data):
+    for index, dictionary in enumerate(data,start=1):
         if not isinstance(dictionary, dict):
             print(f'Invalid format: expected a dictionary at position {index}.')
             is_invalid = True
@@ -89,7 +89,7 @@ def validate(data):
 def search_records(data):
     keyword = input('Masukkan keyword yang ingin dicari : ').lower().strip()
     found_records = []
-    for index,record in enumerate(data):
+    for index,record in enumerate(data,start=1):
         match_found = False
         for key,value in record.items():
             if isinstance(value,list):
