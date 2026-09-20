@@ -85,6 +85,32 @@ def validate(data):
         return False
     print('Valid format.')
     return True
+    
+def search_records(data):
+    keyword = input('Masukkan keyword yang ingin dicari : ').lower().strip()
+    found_records = []
+    for index,record in enumerate(data):
+        match_found = False
+        for key,value in record.items():
+            if isinstance(value,list):
+                if any(keyword in str(item).lower() for item in value):
+                    match_found = True
+                    break
+            else:
+                if keyword in str(value).lower():
+                    match_found = True
+                    break
+        if match_found:
+            found_records.append((index,record))
+    print('-'*40)
+    if found_records:
+        print(f"Ditemukan {len(found_records)} hasil untuk pencarian '{keyword}':\n")
+        for idx, rec in found_records:
+            print(f"Posisi {idx}: {rec}")
+    else:
+        print(f"Tidak ada data pasien yang cocok dengan pencarian '{keyword}'.")
 
-validate(medical_records)
-print(validate)
+is_valid = validate(medical_records)
+if is_valid:
+    print('-'*40)
+    search_records(medical_records)
